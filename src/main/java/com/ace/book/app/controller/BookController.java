@@ -51,5 +51,13 @@ public class BookController {
     }
 
     //TO-DO delete API using TDD approach
+    @DeleteMapping(value = "/{id}")
+    public void deleteBookById(@PathVariable(value = "id") Long id) throws NotFoundException {
+        if(bookRepository.findById(id).isEmpty()){
+            throw new NotFoundException("The book with is not found: "+id);
+        }
+        bookRepository.deleteById(id);
+    }
+
 
 }

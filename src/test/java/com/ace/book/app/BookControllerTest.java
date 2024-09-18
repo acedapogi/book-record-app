@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,4 +130,13 @@ public class BookControllerTest {
 
     }
 
+    @Test
+    public void deleteBookById_success() throws Exception {
+        Mockito.when(bookRepository.findById(BOOK_RECORD_2.getId())).thenReturn(Optional.ofNullable(BOOK_RECORD_2));
+
+        mockMvc.perform(delete("/book/102")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
 }
